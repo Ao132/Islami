@@ -1,30 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:islami/quran/sura_details_screen_style.dart';
+import 'package:islami/hadeeth/hadeeth_details_screen_style.dart';
+import 'package:islami/hadeeth/hadeeth_tab.dart';
 import 'package:islami/theme.dart';
 
-class SuraDetailsScreen extends StatefulWidget {
-  const SuraDetailsScreen({super.key});
+class HadeethDetailsScreen extends StatefulWidget {
+  const HadeethDetailsScreen({super.key});
 
-  static const routeName = 'sura_details_screen';
+  static const routeName = 'hadeeth_details_screen';
 
   @override
-  State<SuraDetailsScreen> createState() => _SuraDetailsScreenState();
+  State<HadeethDetailsScreen> createState() => _HadeethDetailsScreenState();
 }
 
-class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
-  List<String> verses = [];
-
+class _HadeethDetailsScreenState extends State<HadeethDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    SuraDetailsArgs args =
-        ModalRoute.of(context)?.settings.arguments as SuraDetailsArgs;
+    Hadeeth args = ModalRoute.of(context)?.settings.arguments as Hadeeth;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    if (verses.isEmpty) {
-      loadFiles(args.index);
-    }
+
     return Stack(children: [
       Image.asset(
         'assets/images/bg.png',
@@ -45,9 +40,8 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
               color: AppTheme.whiteColor,
               borderRadius: BorderRadius.circular(25)),
           child: Column(children: [
-            SizedBox(height: 15),
             Text(
-              'سورة ${args.name}',
+              args.title,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             Divider(
@@ -58,12 +52,10 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return SuraDetailsScreenStyle(
-                    sura: verses[index],
-                    index: index,
-                  );
+                  return HadeethDetailsScreenStyle(
+                      content: args.content[index]);
                 },
-                itemCount: verses.length,
+                itemCount: args.content.length,
               ),
             ),
           ]),
@@ -71,22 +63,4 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
       )
     ]);
   }
-
-  void loadFiles(int index) async {
-    String fileContent =
-        await rootBundle.loadString('assets/files/sura/${index + 1}.txt');
-    List<String> lines = fileContent.split('\n');
-    verses = lines;
-    setState(() {});
-  }
-}
-
-class SuraDetailsArgs {
-  String name;
-  int index;
-
-  SuraDetailsArgs({
-    required this.name,
-    required this.index,
-  });
 }
