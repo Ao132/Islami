@@ -8,11 +8,18 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: lightPrimary,
     scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 0),
-    appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent, elevation: 0, centerTitle: true),
+    appBarTheme: const AppBarTheme(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true),
     textTheme: const TextTheme(
-      displayLarge: TextStyle(fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
-      titleMedium: TextStyle(fontSize: 25, color: Colors.black, fontWeight: FontWeight.w400),
-      titleSmall: TextStyle(fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+      displayLarge: TextStyle(
+          fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
+      titleMedium: TextStyle(
+          fontSize: 25, color: Colors.black, fontWeight: FontWeight.w400),
+      titleSmall: TextStyle(
+          fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
     ),
   );
 }
