@@ -131,16 +131,19 @@ class QuranTab extends StatelessWidget {
         Text('Sura Name', style: Theme.of(context).textTheme.titleMedium),
         Divider(color: AppTheme.lightPrimary, thickness: 4),
         Expanded(
-          child: ListView.separated(
-            separatorBuilder: (context, index) => Divider(thickness: 2, color: AppTheme.lightPrimary),
-            itemBuilder: (context, index) {
-              return SuraNameStyle(
-                name: names[index],
-                index: index,
-              );
-            },
-            itemCount: names.length,
-          ),
+          child: names.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              : ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      Divider(thickness: 2, color: AppTheme.lightPrimary),
+                  itemBuilder: (context, index) {
+                    return SuraNameStyle(
+                      name: names[index],
+                      index: index,
+                    );
+                  },
+                  itemCount: names.length,
+                ),
         )
       ],
     );
