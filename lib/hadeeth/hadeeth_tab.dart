@@ -1,8 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami/hadeeth/hadeeth_name_style.dart';
+import 'package:islami/provider/app_config_provider.dart';
 import 'package:islami/theme.dart';
+import 'package:provider/provider.dart';
 
 class HadeethTab extends StatefulWidget {
   @override
@@ -14,6 +16,8 @@ class _HadeethTabState extends State<HadeethTab> {
 
   @override
   Widget build(BuildContext context) {
+    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+
     if (hadeethList.isEmpty) {
       loadHadeeth();
     }
@@ -23,15 +27,27 @@ class _HadeethTabState extends State<HadeethTab> {
           flex: 1,
           child: Image.asset('assets/images/hlogo.png'),
         ),
-        Divider(color: AppTheme.lightPrimary, thickness: 4),
-        Text('Hadeeth Name', style: Theme.of(context).textTheme.titleMedium),
-        Divider(color: AppTheme.lightPrimary, thickness: 4),
+        Divider(
+            thickness: 4,
+            color: provider.isDarkMode()
+                ? AppTheme.yellowColor
+                : AppTheme.lightPrimary),
+        Text(AppLocalizations.of(context)!.hadeeth_name,
+            style: Theme.of(context).textTheme.titleMedium),
+        Divider(
+            thickness: 4,
+            color: provider.isDarkMode()
+                ? AppTheme.yellowColor
+                : AppTheme.lightPrimary),
         Expanded(
           child: hadeethList.isEmpty
               ? const Center(child: CircularProgressIndicator())
               : ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      Divider(thickness: 2, color: AppTheme.lightPrimary),
+                  separatorBuilder: (context, index) => Divider(
+                      thickness: 2,
+                      color: provider.isDarkMode()
+                          ? AppTheme.yellowColor
+                          : AppTheme.lightPrimary),
                   itemBuilder: (context, index) {
                     return HadeethNameStyle(hadeeth: hadeethList[index]);
                   },

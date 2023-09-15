@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islami/provider/app_config_provider.dart';
 import 'package:islami/theme.dart';
+import 'package:provider/provider.dart';
 
 class SebhaTab extends StatefulWidget {
   SebhaTab({super.key});
@@ -25,6 +28,7 @@ class _SebhaTabState extends State<SebhaTab> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
 
     return SizedBox(
       width: double.infinity,
@@ -35,46 +39,71 @@ class _SebhaTabState extends State<SebhaTab> {
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
-                Positioned(
-                    left: width * 0.2,
-                    child: Image.asset('assets/images/sebhahead.png')),
+                provider.isDarkMode()
+                    ? Positioned(
+                        left: width * 0.2,
+                        child: Image.asset(
+                          'assets/images/sebhahead.png',
+                          color: AppTheme.yellowColor,
+                        ))
+                    : Positioned(
+                        left: width * 0.2,
+                        child: Image.asset('assets/images/sebhahead.png')),
                 Padding(
                   padding:
                       EdgeInsets.only(top: height * .1, bottom: height * .03),
                   child: Transform.rotate(
                     angle: angle,
-                    child: Image.asset(
-                      'assets/images/sebhabody.png',
-                      height: height * 0.3,
-                    ),
+                    child: provider.isDarkMode()
+                        ? Image.asset(
+                            'assets/images/sebhabody.png',
+                            height: height * 0.3,
+                            color: AppTheme.yellowColor,
+                          )
+                        : Image.asset(
+                            'assets/images/sebhabody.png',
+                            height: height * 0.3,
+                          ),
                   ),
                 ),
               ],
             ),
           ),
-          Text('Tasbeeh Counter',
-              style: Theme.of(context).textTheme.titleMedium),
+          Text(AppLocalizations.of(context)!.tasbeeh_counter,
+              style: provider.isDarkMode()
+                  ? Theme.of(context)
+                      .textTheme
+                      .labelSmall
+                      ?.copyWith(fontWeight: FontWeight.w400)
+                  : Theme.of(context).textTheme.titleMedium),
           Container(
             margin: EdgeInsets.only(top: height * 0.03, bottom: height * .03),
             padding: EdgeInsets.all(height * .03),
             decoration: BoxDecoration(
-              color: AppTheme.lightPrimary,
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(17),
             ),
             child: Text(
               '$sebhaCounter',
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
           Container(
             padding: EdgeInsets.all(height * .008),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: AppTheme.lightPrimary,
+              color: provider.isDarkMode()
+                  ? AppTheme.yellowColor
+                  : AppTheme.lightPrimary,
             ),
             child: Text(
               tasbehList[index],
-              style: Theme.of(context).textTheme.bodySmall,
+              style: provider.isDarkMode()
+                  ? Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(color: AppTheme.blackColor)
+                  : Theme.of(context).textTheme.titleSmall,
             ),
           )
         ],

@@ -1,8 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islami/provider/app_config_provider.dart';
 import 'package:islami/quran/sura_details_screen_style.dart';
 import 'package:islami/theme.dart';
+import 'package:provider/provider.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   const SuraDetailsScreen({super.key});
@@ -22,20 +24,34 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
         ModalRoute.of(context)?.settings.arguments as SuraDetailsArgs;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+
     if (verses.isEmpty) {
       loadFiles(args.index);
     }
     return Stack(children: [
-      Image.asset(
-        'assets/images/bg.png',
-        width: double.infinity,
-        height: double.infinity,
-        fit: BoxFit.fill,
-      ),
+      provider.isDarkMode()
+          ? Image.asset(
+              'assets/images/dbg.png',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.fill,
+            )
+          : Image.asset(
+              'assets/images/bg.png',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.fill,
+            ),
       Scaffold(
         appBar: AppBar(
-            title: Text('Islami',
-                style: Theme.of(context).textTheme.displayLarge)),
+            title: Text(AppLocalizations.of(context)!.app_title,
+                style: provider.isDarkMode()
+                    ? Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(fontSize: 30)
+                    : Theme.of(context).textTheme.displayLarge)),
         body: Container(
           margin: EdgeInsets.fromLTRB(
               width * .05, height * 0.05, width * .05, height * .05),
@@ -48,13 +64,17 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             SizedBox(height: 15),
             Text(
               'سورة ${args.name}',
-              style: Theme.of(context).textTheme.titleSmall,
+              style: provider.isDarkMode()
+                  ? Theme.of(context).textTheme.displaySmall
+                  : Theme.of(context).textTheme.titleSmall,
             ),
             Divider(
                 thickness: 2,
-                color: AppTheme.lightPrimary,
                 indent: 40,
-                endIndent: 40),
+                endIndent: 40,
+                color: provider.isDarkMode()
+                    ? AppTheme.yellowColor
+                    : AppTheme.lightPrimary),
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {

@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:islami/provider/app_config_provider.dart';
+import 'package:provider/provider.dart';
 
 class HadeethDetailsScreenStyle extends StatelessWidget {
   String content;
@@ -9,12 +11,16 @@ class HadeethDetailsScreenStyle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
         content,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: provider.isDarkMode()
+            ? Theme.of(context).textTheme.bodySmall
+            : Theme.of(context).textTheme.titleMedium,
         textDirection: TextDirection.rtl,
       ),
     );
