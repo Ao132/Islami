@@ -20,6 +20,8 @@ class AppTheme {
           fontSize: 25, color: Colors.black, fontWeight: FontWeight.w400),
       titleSmall: TextStyle(
           fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+      bodySmall: TextStyle(
+          fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
     ),
   );
 }
