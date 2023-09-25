@@ -6,18 +6,22 @@ import 'package:islami/provider/app_config_provider.dart';
 import 'package:islami/quran/sura_details_screen.dart';
 import 'package:islami/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-      create: (context) => AppConfigProvider(), child: const MyApp()));
+      create: (context) => AppConfigProvider(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  late AppConfigProvider provider;
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    provider = Provider.of(context);
+    initSharedPref();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: HomeSccreen.routeName,
@@ -34,5 +38,18 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     );
+  }
+
+  initSharedPref() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String lang = prefs.getString('appLang') ?? 'en';
+    String? theme = prefs.getString('appTheme');
+    provider.changeAppLang(lang);
+
+    if (theme == 'light') {
+      provider.changeAppTheme(ThemeMode.light);
+    } else {
+      provider.changeAppTheme(ThemeMode.dark);
+    }
   }
 }

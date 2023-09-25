@@ -16,7 +16,7 @@ class _HadeethTabState extends State<HadeethTab> {
 
   @override
   Widget build(BuildContext context) {
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     if (hadeethList.isEmpty) {
       loadHadeeth();

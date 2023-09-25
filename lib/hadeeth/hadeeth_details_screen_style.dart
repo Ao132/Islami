@@ -11,7 +11,7 @@ class HadeethDetailsScreenStyle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

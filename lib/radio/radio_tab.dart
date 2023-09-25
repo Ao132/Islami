@@ -9,7 +9,7 @@ class RadioTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     double height = MediaQuery.of(context).size.height;
 

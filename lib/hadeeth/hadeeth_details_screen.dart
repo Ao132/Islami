@@ -21,7 +21,7 @@ class _HadeethDetailsScreenState extends State<HadeethDetailsScreen> {
     Hadeeth args = ModalRoute.of(context)?.settings.arguments as Hadeeth;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     return Stack(children: [
       provider.isDarkMode()

@@ -15,7 +15,7 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;

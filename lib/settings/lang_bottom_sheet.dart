@@ -15,7 +15,7 @@ class _LangBottomSheetState extends State<LangBottomSheet> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
     return Container(
       height: height * .2,
       padding: EdgeInsets.fromLTRB(20, 20, 15, 15),

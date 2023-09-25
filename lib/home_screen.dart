@@ -22,7 +22,7 @@ class _HomeSccreenState extends State<HomeSccreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     return Stack(
       children: [

@@ -28,7 +28,7 @@ class _SebhaTabState extends State<SebhaTab> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     return SizedBox(
       width: double.infinity,

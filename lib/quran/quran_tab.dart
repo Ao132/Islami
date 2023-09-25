@@ -127,7 +127,7 @@ class QuranTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     return Column(
       children: [

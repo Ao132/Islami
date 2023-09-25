@@ -14,7 +14,7 @@ class ThemeBottomSheet extends StatefulWidget {
 class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    AppConfigProvider provider = Provider.of<AppConfigProvider>(context);
+    AppConfigProvider provider = Provider.of(context);
 
     double height = MediaQuery.of(context).size.height;
     return Container(
